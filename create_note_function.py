@@ -36,7 +36,7 @@ def create_note():
     # Запрашиваем ввод статуса и показываем возможные варианты статусов из списка
     status = input(f"Введите статус заметки ({"/".join(status_options)}): ").strip().lower()
     while status not in status_options:
-        print(f"Вы ввели неверный статус. Возможные варианты: {",".join(status_options)}")
+        print(f"Вы ввели неверный статус. Возможные варианты: {", ".join(status_options)}")
         status = input(f"Введите статус заметки ({"/".join(status_options)}): ").strip().lower()
 
     # Присваиваем дате создание заметки текущую дату используя модуль datetime
