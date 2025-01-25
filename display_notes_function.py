@@ -23,7 +23,7 @@ def display_page(notes, page):
 def display_notes(notes, page_number=0):
     # Проверка на пустой список заметок
     if len(notes) == 0:
-        print("Список заметок пуст")
+        print("Список заметок пуст\nУ вас нет сохраненных заметок.")
     # Если в списке есть заметки, выводит на дисплей указанную страницу с заметками (по 5 заметок на одной странице)
     else:
         display_page(notes, page_number)
