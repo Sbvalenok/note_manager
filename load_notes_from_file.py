@@ -28,6 +28,7 @@ def load_notes_from_file(filename):
                 for block in note_blocks:
                     # Делим блок (заметку) на строки по символу новой строки (\n)
                     note_lines = block.split("\n")
+                    note_lines = [line for line in note_lines if len(line) > 0]
                     # Создаем пустой словарь для добавления информации полученной при делении блоков на строки
                     note = {}
                     # Запускаем цикл обработки полученных строк
