@@ -2,7 +2,9 @@
 
 # Создаем функцию для чтения заметки из файла .txt
 def load_notes_from_file(filename):
+    # Создаем пустой список для заметок
     notes = []
+    # Создаем таблице для перевода данных из текстого файла
     translate_table = {
         "Имя пользователя": "username",
         "Заголовок": "title",
@@ -11,21 +13,50 @@ def load_notes_from_file(filename):
         "Дата создания": "created_date",
         "Дедлайн": "issue_date"
     }
-    with open(filename, 'r', encoding='UTF-8') as file:
-        content = file.read()
-        if content:
-            note_blocks = content.split("\n---\n")
-            for block in note_blocks:
-                note_lines = block.split("\n")
-                note = {}
-                for line in note_lines:
-                    verbose_key, value = line.split(": ", 1)
-                    key = translate_table[verbose_key]
-                    note[key] = value
-                notes.append(note)
+
+    # Цикл обработки ошибок (этап 4 задание 3)
+    try:
+        # Открытие файла для чтения
+        with open(filename, 'r', encoding='UTF-8') as file:
+            # Создаем переменную в которую будем записывать данные из файла
+            content = file.read()
+            # Запускаем цикл
+            if content:
+                # Делим полученные данные на блоки (заметки)
+                note_blocks = content.split("\n---\n")
+                # Запускаем цикл и перебираем внутри полученных блоков строки
+                for block in note_blocks:
+                    # Делим блок (заметку) на строки по символу новой строки (\n)
+                    note_lines = block.split("\n")
+                    # Создаем пустой словарь для добавления информации полученной при делении блоков на строки
+                    note = {}
+                    # Запускаем цикл обработки полученных строк
+                    for line in note_lines:
+                        # Делим полученную строку на ключ значение по символу ": ", и присваиваем им переменные
+                        verbose_key, value = line.split(": ", 1)
+                        # Меняем значение ключа в соответствии с данными из таблицы перевода
+                        key = translate_table[verbose_key]
+                        # Добавляем полученную информация в новый словарь на место ключа
+                        note[key] = value
+                    # Добавляем полученные данные в список заметок
+                    notes.append(note)
+
+    # Обработка ошибки отсутствия файла (этап 4 задание 3)
+    except FileNotFoundError:
+        print(f"Файл '{filename}' не найден.")
+
+    # Обработка других ошибок и вывод на экран сообщения текстом ошибки (этап 4 задание 3)
+    except Exception as e:
+        print(f"Произошла ошибка чтения файла: {e}")
+
+    # Возвращаем полученный список заметок
     return notes
 
-if __name__ == '__main__':
-    notes = load_notes_from_file("filename.txt")
+
+if __name__ == "__main__":
+    # Пример
+    notes = load_notes_from_file('filename.txt')
+    # Перебираем заметки в списке
     for note in notes:
+        # Выводим их на дисплей
         print(note)
